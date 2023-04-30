@@ -17,17 +17,11 @@ Including another URLconf
 from django.urls import path, re_path
 from django.views.generic import TemplateView
 from django.views.decorators.cache import never_cache
-from django_vite.views import dev_server, serve_static
+#from django_vite.views import dev_server, serve_static
+from django.contrib import admin
+from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
-        # Path to your Vue.js app's index.html file
-    path('', never_cache(TemplateView.as_view(template_name='index.html')), name='home'),
-    
-    # Path to your Vue.js app's static files
-    re_path(r'^static/(?P<path>.*)$', serve_static),
-
-    # Path to the Vite development server during development
-    path('__vite_dev_server__', dev_server),
+    path('accounts/', include('allauth.urls')),
 ]
