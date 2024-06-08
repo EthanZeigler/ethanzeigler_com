@@ -16,7 +16,7 @@
     "types": [
       "node",
       "vuetify",
-      "web-bluetooth"
+      "web-bluetooth",
     ],
     "paths": {
       "@/*": ["src/*"]

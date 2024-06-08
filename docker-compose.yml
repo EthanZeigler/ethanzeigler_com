@@ -1,0 +1,21 @@
+services:
+  vite:
+    build:
+      dockerfile: ./Dockerfile
+      target: dev-mount
+      context: ./static/vuetify-project-ts/
+    volumes:
+      - ./static/vuetify-project-ts:/app
+    ports:
+      - 3000:3000
+    environment:
+      - VITE_DJANGO_SERVER="http://django:8000"
+  django:
+    build:
+      dockerfile: ./Dockerfile
+      target: dev-mount
+    volumes:
+      - ./:/app
+    ports:
+      - 8000:8000
+      - 8009:8009

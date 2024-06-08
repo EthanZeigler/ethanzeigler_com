@@ -6,11 +6,13 @@ import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 import { defineConfig } from 'vite'
 import { fileURLToPath, URL } from 'node:url'
 
+console.log(process.env.VITE_DJANGO_SERVER || "http://127.0.0.1:8000")
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    vue({ 
-      template: { transformAssetUrls }
+    vue({
+      template: { transformAssetUrls },
     }),
     // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vite-plugin
     vuetify({
@@ -23,7 +25,7 @@ export default defineConfig({
   define: { 'process.env': {} },
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
     extensions: [
       '.js',
@@ -39,9 +41,9 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': {
-        target: 'http://localhost:8000',
+        target: (process.env.VITE_DJANGO_SERVER || "http://127.0.0.1:8000"),
         changeOrigin: true,
-        //rewrite: (path) => path.replace(/^\/api/, ''),
+        // rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
   },
